@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_14_122442) do
+ActiveRecord::Schema.define(version: 2020_11_14_123017) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -58,6 +58,20 @@ ActiveRecord::Schema.define(version: 2020_11_14_122442) do
     t.index ["province_id"], name: "index_customers_on_province_id"
   end
 
+  create_table "order_details", force: :cascade do |t|
+    t.integer "product_id", null: false
+    t.integer "order_id", null: false
+    t.decimal "order_price"
+    t.integer "quantity"
+    t.decimal "order_pst"
+    t.decimal "order_gst"
+    t.decimal "order_hst"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_order_details_on_order_id"
+    t.index ["product_id"], name: "index_order_details_on_product_id"
+  end
+
   create_table "orders", force: :cascade do |t|
     t.integer "customer_id", null: false
     t.string "shippingAddress"
@@ -88,6 +102,8 @@ ActiveRecord::Schema.define(version: 2020_11_14_122442) do
   end
 
   add_foreign_key "customers", "provinces"
+  add_foreign_key "order_details", "orders"
+  add_foreign_key "order_details", "products"
   add_foreign_key "orders", "customers"
   add_foreign_key "products", "categories"
 end
