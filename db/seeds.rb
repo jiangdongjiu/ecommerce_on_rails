@@ -17,5 +17,5 @@ page_numbers.each do |page|
 end
 
 recipes.each do |recipe|
-  Product.create(name: , price: , description: , stock: , category:)
+  Product.create(name: , price: , description: , stock: , category:, image_url: )
 end
