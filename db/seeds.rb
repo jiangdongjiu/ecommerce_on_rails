@@ -1,8 +1,22 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+AdminUser.delete_all
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+
+def api_fetch(url)
+  JSON.parse(URI.open(url).read)
+end
+
+def recipe_url(page)
+  "http://www.recipepuppy.com/api/?p=#{page}"
+end
+
+recipes = []
+page_numbers = 1..10
+page_numbers.each do |page|
+  recipe_page = api_fetch(recipe_url(page))
+  recipes += recipe_page["results"]
+end
+
+
+
+puts recipes.count
+puts recipes
