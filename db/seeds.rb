@@ -16,7 +16,6 @@ page_numbers.each do |page|
   recipes += recipe_page["results"]
 end
 
-
-
-puts recipes.count
-puts recipes
+recipes.each do |recipe|
+  Product.create(name: , price: , description: , stock: , category)
+end
