@@ -1,18 +1,28 @@
 ActiveAdmin.register OrderDetail do
 
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # Uncomment all parameters which should be permitted for assignment
-  #
-  # permit_params :product_id, :order_id, :order_price, :quantity, :order_pst, :order_gst, :order_hst
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:product_id, :order_id, :order_price, :quantity, :order_pst, :order_gst, :order_hst]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
-  
+  # whitelisting
+  permit_params :product_id,
+                :order_id,
+                :order_price,
+                :quantity,
+                :order_gst,
+                :order_hst,
+                :order_pst
+
+  # DSL Domain Specific Language
+  # Formtastic gem (google it)
+  form do |f|
+    f.semantic_errors # shows errors on :base
+    # builds an input field for every attribute
+    f.inputs "Customer" do
+      f.input :order_price
+      f.input :quantity
+      f.input :order_gst
+      f.input :order_pst
+      f.input :order_hst
+      f.input :product, as: :select
+      f.input :order, as: :select
+    end
+    f.actions         # adds the 'Submit' and 'Cancel' buttons
+  end
 end
