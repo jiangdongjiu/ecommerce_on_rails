@@ -4,6 +4,6 @@ class Order < ApplicationRecord
   has_many :products, through: :order_details
 
   accepts_nested_attributes_for :order_details, allow_destroy: true
-  
-  validates :shipping_address, :status, presence: true
+
+  validates :name, :shipping_address, :status, presence: true
 end

@@ -1,7 +1,8 @@
 ActiveAdmin.register Order do
 
   # whitelisting
-  permit_params :customer_id,
+  permit_params :name,
+                :customer_id,
                 :shipping_address,
                 :status,
                 order_details: [:id,
@@ -18,6 +19,7 @@ ActiveAdmin.register Order do
     f.semantic_errors # shows errors on :base
     # builds an input field for every attribute
     f.inputs "Order" do
+      f.input :name
       f.input :customer, as: :select
       f.input :shipping_address
       f.input :status
