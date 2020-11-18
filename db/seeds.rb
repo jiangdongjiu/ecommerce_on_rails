@@ -1,5 +1,21 @@
+OrderDetail.delete_all
+Product.delete_all
+Category.delete_all
+Order.delete_all
+Customer.delete_all
+Province.delete_all
 AdminUser.delete_all
+
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+
+categories = ["Meat and Veggies", "Easy and Fast", "Family Friendly", "Vegetarian"]
+def random_category()
+  ["Meat and Veggies", "Easy and Fast", "Family Friendly", "Vegetarian"].sample
+end
+
+categories.each do |category|
+  Category.create(name: category)
+end
 
 def api_fetch(url)
   JSON.parse(URI.open(url).read)
@@ -16,6 +32,12 @@ page_numbers.each do |page|
   recipes += recipe_page["results"]
 end
 
+# p recipes[0]
 recipes.each do |recipe|
-  Product.create(name: , price: , description: , stock: , category:, image_url: )
+  Product.create(name: recipe["title"],
+                price: Faker::Commerce.price,
+                description: "Ingredients: " + recipe["ingredients"],
+                stock: 100,
+                category: Category.find_by(name: random_category()),
+                image_url: recipe["thumbnail"])
 end
