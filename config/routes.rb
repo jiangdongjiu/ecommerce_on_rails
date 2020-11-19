@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
   root to: 'products#index'
-  
-  resources :pages, only: [:show]
-  get 'pages/:name' => 'pages#show', as: :name
+
+  get '/pages/:permalink' => 'pages#show_page', as: :permalink
 
   resources :products, only: [:index, :show] do
     collection do
