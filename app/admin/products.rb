@@ -7,6 +7,7 @@ ActiveAdmin.register Product do
                 :stock,
                 :category_id,
                 :image_url,
+                :image,
                 order_details: [:id,
                                 :product_id,
                                 :order_id,
@@ -16,6 +17,7 @@ ActiveAdmin.register Product do
                                 :order_pst,
                                 :order_hst,
                                 :_destroy]
+
   # Formtastic gem (google it)
   form do |f|
     f.semantic_errors # shows errors on :base
