@@ -28,6 +28,7 @@ ActiveAdmin.register Product do
       f.input :description
       f.input :stock
       f.input :image_url
+      f.input :image
       f.input :category, as: :select
       f.has_many :order_details, allow_destroy: true do |n_f|
         n_f.input :order
