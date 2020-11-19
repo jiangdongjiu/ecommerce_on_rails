@@ -1,0 +1,22 @@
+<div class="column">
+  <div class="card">
+    <h4 class= "title is-4">
+      <% if show_link %>
+        <%= link_to product.name, product %>
+      <% else %>
+        <%= product.name %>
+      <% end %>
+    </h4>
+    <div class="card-image">
+      <figure class="image is-1by1">
+        <%= image_tag(product.image_url, alt: product.name)%>
+      </figure>
+    </div>
+    <div class="card-content">
+    <div class="content">
+      <p><%= product.description %></p>
+    </div>
+  </div>
+  </div>
+
+</div>
