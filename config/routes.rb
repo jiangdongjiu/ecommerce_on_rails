@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  get 'pages/show'
   root to: 'products#index'
+  
+  resources :pages, only: [:show]
+  get 'pages/:name' => 'pages#show', as: :name
 
   resources :products, only: [:index, :show] do
     collection do
