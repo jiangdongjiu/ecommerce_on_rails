@@ -1,18 +1,22 @@
-<div class="column">
+<div class="column is-one-quarter">
   <div class="card">
-    <h4 class= "title is-4">
+    <div class="card-image">
+      <figure class="image">
+        <% if show_link %>
+          <%= link_to image_tag(product.image_url, alt: product.name), product%>
+        <% else %>
+          <%= image_tag(product.image_url, alt: product.name) %>
+        <% end %>
+      </figure>
+    </div>
+    <div class="card-content">
+    <h4 class= "title is-7">
       <% if show_link %>
         <%= link_to product.name, product %>
       <% else %>
         <%= product.name %>
       <% end %>
     </h4>
-    <div class="card-image">
-      <figure class="image is-1by1">
-        <%= image_tag(product.image_url, alt: product.name)%>
-      </figure>
-    </div>
-    <div class="card-content">
     <div class="content">
       <p><%= product.description %></p>
     </div>
