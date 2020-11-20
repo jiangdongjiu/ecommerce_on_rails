@@ -26,10 +26,20 @@ class ProductsController < ApplicationController
   def search
     wildcard_search = "%#{params[:keywords]}%"
     category_filter = params[:category]
-    if params[:category].present?
-      @products = Product.where("(name LIKE ? OR description LIKE ?)", wildcard_search, wildcard_search).where(category_id: category_filter).page params[:page]
-    else
-      @products = Product.where("(name LIKE ? OR description LIKE ?)", wildcard_search, wildcard_search).page params[:page]
+    time_filer = params[:time]
+
+    @products = Product.where("name LIKE ? OR description LIKE ?", wildcard_search, wildcard_search)
+
+    if time_filer == "New"
+      @products = @products.where(created_at: (Time.now - 3.days)..Time.now)
+    elsif time_filer == "Recently Updated"
+      @products = @products.where(updated_at: (Time.now - 3.minutes)..Time.now)
     end
+
+    if category_filter.present?
+      @products = @products.where(category_id: category_filter)
+    end
+
+    @products = @products.page params[:page]
   end
 end

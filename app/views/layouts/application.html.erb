@@ -49,13 +49,18 @@
                   <%= text_field_tag(:keywords, nil, class: "input", placeholder: "search for products") %>
                 </div>
                 <div class="control is-expended">
-                  <%= select_tag(:category, options_for_select([['All', nil],
+                  <%= select_tag(:category, options_for_select([['All Categories', nil],
                                                                 ['Family Friendly', 12],
                                                                 ['Easy Fast', 11],
                                                                 ['Meat&Veggies', 10],
                                                                 ['Vegetarian', 13]])) %>
                 </div>
-                <div class="control ">
+                <div class="control is-expended">
+                  <%= select_tag(:time, options_for_select([['All Times', 'All Times'],
+                                                            ['New', 'New'],
+                                                            ['Recently Updated', 'Recently Updated']])) %>
+                </div>
+                <div class="control">
                   <%= submit_tag("Search", class: "button is-primary") %>
                 </div>
               </div>
