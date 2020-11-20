@@ -5,7 +5,7 @@
         <% if show_link %>
           <%= link_to image_tag(product.image, alt: product.name), product%>
         <% else %>
-          <%= image_tag(product.image_url, alt: product.name) %>
+          <%= image_tag(product.image, alt: product.name) %>
         <% end %>
       </figure>
     </div>
