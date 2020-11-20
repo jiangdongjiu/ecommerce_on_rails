@@ -16,6 +16,9 @@ Rails.application.routes.draw do
     collection do
       get 'meat_veggies'
     end
+    collection do
+      get 'search'
+    end
   end
 
   devise_for :admin_users, ActiveAdmin::Devise.config

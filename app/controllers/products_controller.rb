@@ -22,4 +22,9 @@ class ProductsController < ApplicationController
   def meat_veggies
     @products = Product.includes(:category).where(category_id: 10)
   end
+
+  def search
+    wildcard_search = "%#{params[:keywords]}%"
+    @products = Product.where("name LIKE ? OR description LIKE ?", wildcard_search, wildcard_search)
+  end
 end

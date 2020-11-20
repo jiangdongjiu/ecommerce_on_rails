@@ -1,0 +1,7 @@
+<% if params[:keywords].present? %>
+  <h1 class="title is-1">Recipes found when search for: <%= params[:keywords] %></h1>
+<% end %>
+
+<div class="columns is-multiline">
+  <%= render partial: 'product', collection: @products, locals: { show_link: true } %>
+</div>
