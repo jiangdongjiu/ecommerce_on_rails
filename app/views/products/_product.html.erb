@@ -10,15 +10,18 @@
       </figure>
     </div>
     <div class="card-content">
-    <h4 class= "title is-7">
-      <% if show_link %>
-        <%= link_to product.name, product %>
-      <% else %>
-        <%= product.name %>
-      <% end %>
-    </h4>
     <div class="content">
-      <p><%= product.description %></p>
+      <h4 class= "title is-6">
+        <% if show_link %>
+          <%= link_to product.name, product %>
+        <% else %>
+          <%= product.name %>
+        <% end %>
+      </h4>
+      <h4 class= "title is-7"><%= product.category.name %></h4>
+      <% if !show_link %>
+        <p><%= product.description %></p>
+      <% end %>
     </div>
   </div>
   </div>
