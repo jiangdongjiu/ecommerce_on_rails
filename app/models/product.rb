@@ -10,4 +10,6 @@ class Product < ApplicationRecord
   validates :stock, numericality: { only_integer: true }
 
   has_one_attached :image
+
+  paginates_per 8
 end

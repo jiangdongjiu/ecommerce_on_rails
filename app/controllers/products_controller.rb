@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.includes(:category).find(params[:id])
+    @product = Product.find(params[:id])
   end
 
   def vegetarian
