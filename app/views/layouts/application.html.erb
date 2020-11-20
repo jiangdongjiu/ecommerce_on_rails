@@ -46,6 +46,13 @@
             <div class="control is-expended">
               <%= text_field_tag(:keywords, nil, class: "input", placeholder: "search for products") %>
             </div>
+            <div class="control is-expended">
+              <%= select_tag(:category, options_for_select([['All', nil],
+                                                            ['Family Friendly', 12],
+                                                            ['Easy Fast', 11],
+                                                            ['Meat&Veggies', 10],
+                                                            ['Vegetarian', 13]])) %>
+            </div>
             <div class="control ">
               <%= submit_tag("Search", class: "button is-primary") %>
             </div>
