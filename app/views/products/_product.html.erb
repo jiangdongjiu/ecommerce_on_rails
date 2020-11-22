@@ -22,6 +22,10 @@
       <% if !show_link %>
         <p><%= product.description %></p>
       <% end %>
+      <%= form_with url: cart_index_path do %>
+        <%= hidden_field_tag(:id, product.id) %>
+        <%= button_tag('Add to Cart', class: "button is-primary") %>
+      <% end %>
     </div>
   </div>
   </div>
