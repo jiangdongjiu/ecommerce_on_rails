@@ -22,9 +22,16 @@
       <% if !show_link %>
         <p><%= product.description %></p>
       <% end %>
-      <%= form_with url: cart_index_path do %>
-        <%= hidden_field_tag(:id, product.id) %>
-        <%= button_tag('Add to Cart', class: "button is-primary") %>
+
+      <% if cart.include?(product) %>
+        <%= button_to(cart_path(product), method: :delete, class: "button is-primary") do %>
+          ❌ Remove From Cart
+        <% end %>
+      <% else %>
+        <%= form_with url: cart_index_path do %>
+          <%= hidden_field_tag(:id, product.id) %>
+          <%= button_tag('➕ Add to Cart', class: "button is-primary") %>
+        <% end %>
       <% end %>
     </div>
   </div>

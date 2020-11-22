@@ -41,6 +41,7 @@
         </div>
       </div>
     </nav>
+
     <section class="section">
       <div class="container">
         <%= form_with(url: search_products_path, method: :get, local: true) do %>
@@ -64,6 +65,12 @@
                   <%= submit_tag("Search", class: "button is-primary") %>
                 </div>
               </div>
+        <% end %>
+        <%# <%= debug session[:shopping_cart] %>
+        <%# <%= debug cart %>
+        <%= debug session[:shopping_cart] %>
+        <% if flash[:notice] %>
+          <p><%= flash[:notice] %></p>
         <% end %>
         <%= yield %>
       </div>
