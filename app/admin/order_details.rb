@@ -1,5 +1,4 @@
 ActiveAdmin.register OrderDetail do
-
   # whitelisting
   permit_params :product_id,
                 :order_id,
@@ -14,7 +13,7 @@ ActiveAdmin.register OrderDetail do
   form do |f|
     f.semantic_errors # shows errors on :base
     # builds an input field for every attribute
-    f.inputs "Customer" do
+    f.inputs 'Customer' do
       f.input :order_price
       f.input :quantity
       f.input :order_gst

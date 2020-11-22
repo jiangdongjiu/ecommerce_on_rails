@@ -1,5 +1,4 @@
 ActiveAdmin.register Customer do
-
   # whitelisting
   permit_params :username,
                 :password,
@@ -14,7 +13,7 @@ ActiveAdmin.register Customer do
   form do |f|
     f.semantic_errors # shows errors on :base
     # builds an input field for every attribute
-    f.inputs "Customer" do
+    f.inputs 'Customer' do
       f.input :username
       f.input :password
       f.input :fullname

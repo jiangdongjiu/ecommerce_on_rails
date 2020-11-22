@@ -8,11 +8,13 @@ Customer.delete_all
 Province.delete_all
 AdminUser.delete_all
 
-AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+if Rails.env.development?
+  AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
+end
 
 # categories = ["Meat and Veggies", "Easy and Fast", "Family Friendly", "Vegetarian"]
-def random_category()
-  ["Meat and Veggies", "Easy and Fast", "Family Friendly", "Vegetarian"].sample
+def random_category
+  ['Meat and Veggies', 'Easy and Fast', 'Family Friendly', 'Vegetarian'].sample
 end
 
 # categories.each do |category|
@@ -31,24 +33,22 @@ recipes = []
 page_numbers = 1..10
 page_numbers.each do |page|
   recipe_page = api_fetch(recipe_url(page))
-  recipes += recipe_page["results"]
+  recipes += recipe_page['results']
 end
 
 recipes.each do |recipe|
-  recipe_entry = Product.create(name: recipe["title"],
-                          price: Faker::Commerce.price,
-                          description: "Ingredients: " + recipe["ingredients"],
-                          stock: 100,
-                          category: Category.find_by(name: random_category()),
-                          image_url: recipe["thumbnail"])
-  if recipe["thumbnail"].present?
-    downloaded_image = URI.open("#{recipe["thumbnail"]}")
-  else
-    downloaded_image = URI.open("http://img.recipepuppy.com/9.jpg")
-  end
+  recipe_entry = Product.create(name: recipe['title'],
+                                price: Faker::Commerce.price,
+                                description: 'Ingredients: ' + recipe['ingredients'],
+                                stock: 100,
+                                category: Category.find_by(name: random_category),
+                                image_url: recipe['thumbnail'])
+  downloaded_image = if recipe['thumbnail'].present?
+                       URI.open((recipe['thumbnail']).to_s)
+                     else
+                       URI.open('http://img.recipepuppy.com/9.jpg')
+                     end
 
-  if downloaded_image
-    recipe_entry.image.attach(io: downloaded_image, filename: "#{recipe["title"]}.jpg")
-  end
+  recipe_entry.image.attach(io: downloaded_image, filename: "#{recipe['title']}.jpg") if downloaded_image
   # sleep(1)
 end

@@ -1,24 +1,23 @@
 ActiveAdmin.register Order do
-
   # whitelisting
   permit_params :name,
                 :customer_id,
                 :shipping_address,
                 :status,
-                order_details: [:id,
-                                :product_id,
-                                :order_id,
-                                :order_price,
-                                :quantity,
-                                :order_gst,
-                                :order_pst,
-                                :order_hst,
-                                :_destroy]
+                order_details: %i[id
+                                  product_id
+                                  order_id
+                                  order_price
+                                  quantity
+                                  order_gst
+                                  order_pst
+                                  order_hst
+                                  _destroy]
   # Formtastic gem (google it)
   form do |f|
     f.semantic_errors # shows errors on :base
     # builds an input field for every attribute
-    f.inputs "Order" do
+    f.inputs 'Order' do
       f.input :name
       f.input :customer, as: :select
       f.input :shipping_address
@@ -30,4 +29,3 @@ ActiveAdmin.register Order do
     f.actions         # adds the 'Submit' and 'Cancel' buttons
   end
 end
-

@@ -28,17 +28,15 @@ class ProductsController < ApplicationController
     category_filter = params[:category]
     time_filer = params[:time]
 
-    @products = Product.where("name LIKE ? OR description LIKE ?", wildcard_search, wildcard_search)
+    @products = Product.where('name LIKE ? OR description LIKE ?', wildcard_search, wildcard_search)
 
-    if time_filer == "New"
+    if time_filer == 'New'
       @products = @products.where(created_at: (Time.now - 3.days)..Time.now)
-    elsif time_filer == "Recently Updated"
+    elsif time_filer == 'Recently Updated'
       @products = @products.where(updated_at: (Time.now - 3.minutes)..Time.now)
     end
 
-    if category_filter.present?
-      @products = @products.where(category_id: category_filter)
-    end
+    @products = @products.where(category_id: category_filter) if category_filter.present?
 
     @products = @products.page params[:page]
   end
