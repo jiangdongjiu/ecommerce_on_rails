@@ -17,109 +17,123 @@
 
 
     <section class="section">
-      <nav class="navbar" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-          <a class="navbar-item" href=<%= root_path %>>
-            <%= image_tag("logo.png") %>
-          </a>
+      <div class="container">
+        <nav class="navbar is-fixed-top has-shadow" role="navigation" aria-label="main navigation">
 
-          <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
-        </div>
 
-        <div class="navbar-menu">
-          <div class="navbar-start">
-            <a class="navbar-item" href=<%= root_path %>>
-              <strong>FreshFood</strong>
-            </a>
-            <a class="navbar-item" href="/products/family_friendly">
-              Family Friendly
-            </a>
-            <a class="navbar-item" href="/products/easy_fast">
-              Easy Fast
-            </a>
-            <a class="navbar-item" href="/products/meat_veggies">
-              Meat&Veggies
-            </a>
-            <a class="navbar-item" href="/products/vegetarian">
-              Vegetarian
-            </a>
-
-            <div class="navbar-item has-dropdown is-hoverable">
-              <a class="navbar-link">
-                More
+            <div class="navbar-brand">
+              <a class="navbar-item" href=<%= root_path %>>
+                <%= image_tag("logo.png") %>
               </a>
 
-              <div class="navbar-dropdown">
-                <a class="navbar-item" href=<%= permalink_path('about_us') %>>
-                  About
-                </a>
-                <a class="navbar-item" href=<%= permalink_path('contact_us') %>>
-                  Contact
-                </a>
-              </div>
+              <a role="button is-active" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+              </a>
             </div>
-          </div>
 
-          <div class="navbar-end">
-            <div class="navbar-item has-dropdown is-hoverable">
-              <a class="navbar-link">
-                Cart
-              </a>
+            <div id="navbarBasicExample" class="navbar-menu">
+              <div class="navbar-start">
+                <a class="navbar-item" href=<%= root_path %>>
+                  <strong>FreshFood</strong>
+                </a>
+                <a class="navbar-item" href="/products/family_friendly">
+                  Family Friendly
+                </a>
+                <a class="navbar-item" href="/products/easy_fast">
+                  Easy Fast
+                </a>
+                <a class="navbar-item" href="/products/meat_veggies">
+                  Meat&Veggies
+                </a>
+                <a class="navbar-item" href="/products/vegetarian">
+                  Vegetarian
+                </a>
 
-              <div class="navbar-dropdown is-right">
-                <% cart.each do |product| %>
-                  <div class="navbar-item" >
-                    <%= product.name %>
-                    <div class="ml-2"><%= link_to('❌', cart_path(product), method: :delete) %></div>
+                <div class="navbar-item has-dropdown is-hoverable">
+                  <a class="navbar-link">
+                    More
+                  </a>
+
+                  <div class="navbar-dropdown">
+                    <a class="navbar-item" href=<%= permalink_path('about_us') %>>
+                      About
+                    </a>
+                    <a class="navbar-item" href=<%= permalink_path('contact_us') %>>
+                      Contact
+                    </a>
                   </div>
-                <% end %>
+                </div>
+              </div>
+
+              <div class="navbar-end">
+                <div class="navbar-item has-dropdown is-hoverable">
+                  <a class="navbar-link">
+                    Cart
+                  </a>
+
+                  <div class="navbar-dropdown is-right">
+                    <% cart.each do |product, quantity| %>
+                      <div class="navbar-item" >
+                        <%= Product.find(product.id).name %> <%= quantity %>
+                        <div class="ml-2"><%= link_to('❌', cart_path(product), method: :delete) %></div>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </nav>
-
-      <%# <div class="container"> %>
+        </nav>
+        <br/>
+        <div class="container is-max-widescreen">
         <%= form_with(url: search_products_path, method: :get, local: true) do %>
-              <div class="field is-grouped mb-5">
-                <div class="control is-expended">
-                  <%= text_field_tag(:keywords, nil, class: "input", placeholder: "search for products") %>
-                </div>
-                <div class="control is-expended">
-                  <%= select_tag(:category, options_for_select([['All Categories', nil],
-                                                                ['Family Friendly', 12],
-                                                                ['Easy Fast', 11],
-                                                                ['Meat&Veggies', 10],
-                                                                ['Vegetarian', 13]])) %>
-                </div>
-                <div class="control is-expended">
-                  <%= select_tag(:time, options_for_select([['All Times', 'All Times'],
-                                                            ['New', 'New'],
-                                                            ['Recently Updated', 'Recently Updated']])) %>
-                </div>
-                <div class="control">
-                  <%= submit_tag("Search", class: "button is-primary") %>
+              <div class="level mb-5">
+                <div class= "level-left">
+                  <div class="level-item">
+                    <div class="control is-expended">
+                      <%= text_field_tag(:keywords, nil, class: "input", placeholder: "search for products") %>
+                    </div>
+                  </div>
+
+                  <div class="level-item">
+                    <div class="select is-expended">
+                      <%= select_tag(:category, options_for_select([['All Categories', nil],
+                                                                    ['Family Friendly', 12],
+                                                                    ['Easy Fast', 11],
+                                                                    ['Meat&Veggies', 10],
+                                                                    ['Vegetarian', 13]])) %>
+                    </div>
+                  </div>
+
+                  <div class="level-item">
+                    <div class="select is-expended">
+                      <%= select_tag(:time, options_for_select([['All Times', 'All Times'],
+                                                                ['New', 'New'],
+                                                                ['Recently Updated', 'Recently Updated']])) %>
+                    </div>
+                  </div>
+
+                  <div class="level-item">
+                  <div class="control">
+                    <%= submit_tag("Search", class: "button is-primary") %>
+                  </div></div>
                 </div>
               </div>
         <% end %>
+        </div>
         <%# <%= debug session[:shopping_cart] %>
         <%# <%= debug cart %>
         <%# <% debug session[:shopping_cart] %>
 
         <% if flash[:notice] %>
-          <div class="container is-max-widescreen">
-            <div class="notification is-primary">
+            <div class="notification is-primary is-light">
               <%= flash[:notice] %>
             </div>
-          </div>
         <% end %>
 
         <%= yield %>
-      <%# </div> %>
+      </div>
     </section>
   </body>
 </html>

@@ -4,11 +4,9 @@ class CartController < ApplicationController
   def create
     # Add param[:id] to cart.
     id = params[:id].to_i
-
-    unless session[:shopping_cart].include?(id)
-      session[:shopping_cart] << id
-      flash[:notice] = "#{Product.find(id).name} added to your cart."
-    end
+    quantity = params[:product]["quantity"].to_i
+    session[:shopping_cart][id] = quantity # hash: {1 => 5, 2 => 6} product(id = 1) have 5 quantity
+    flash[:notice] = "#{Product.find(id).name} added to your cart."
 
     redirect_to root_path
     # logger.debug("Adding #{params[:id]} to the cart.") #termial output
@@ -18,7 +16,7 @@ class CartController < ApplicationController
   def destroy
     # Remove param[:id] from cart
     id = params[:id].to_i
-    session[:shopping_cart].delete(id)
+    session[:shopping_cart].delete(id.to_s)
     flash[:notice] = "#{Product.find(id).name} removed from your cart."
     redirect_to root_path
   end
