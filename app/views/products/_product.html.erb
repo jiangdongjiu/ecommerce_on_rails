@@ -27,7 +27,7 @@
         <%= hidden_field_tag(:id, product.id) %>
         <div class="field is-grouped">
           <%= number_field(:product, :quantity, min: 1, class: "input") %>
-          <%= button_tag('Add', class: "button is-primary") %>
+          <%= button_tag(cart.include?(product) ? 'Update' : 'Add', class: "button is-primary") %>
         </div>
       <% end %>
 
