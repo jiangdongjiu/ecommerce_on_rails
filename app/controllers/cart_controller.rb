@@ -20,4 +20,8 @@ class CartController < ApplicationController
     flash[:notice] = "#{Product.find(id).name} removed from your cart."
     redirect_to root_path
   end
+
+  def checkout
+    @products_with_quantity = cart
+  end
 end
