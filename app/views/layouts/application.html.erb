@@ -26,7 +26,7 @@
                 <%= image_tag("logo.png") %>
               </a>
 
-              <a role="button is-active" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+              <a role="button is-active" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
@@ -80,6 +80,21 @@
                         <div class="ml-2"><%= link_to('❌', cart_path(product), method: :delete) %></div>
                       </div>
                     <% end %>
+                    <hr class="navbar-divider">
+                    <a class="navbar-item" href="/">
+                      Checkout
+                    </a>
+                  </div>
+                </div>
+
+                <div class="navbar-item">
+                  <div class="buttons">
+                    <a class="button is-primary">
+                      <strong>Sign up</strong>
+                    </a>
+                    <a class="button is-light">
+                      Log in
+                    </a>
                   </div>
                 </div>
               </div>
