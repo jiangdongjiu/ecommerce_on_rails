@@ -12,9 +12,6 @@ ActiveAdmin.register Product do
                                   order_id
                                   order_price
                                   quantity
-                                  order_gst
-                                  order_pst
-                                  order_hst
                                   _destroy]
 
   # Formtastic gem (google it)
@@ -33,9 +30,6 @@ ActiveAdmin.register Product do
         n_f.input :order, as: :select, collection: Order.all.map { |o| ["id: #{o.id}, user: #{o.user.email}, created at: #{o.created_at}, updated at: #{o.updated_at}", o.id] }
         n_f.input :order_price
         n_f.input :quantity
-        n_f.input :order_gst
-        n_f.input :order_pst
-        n_f.input :order_hst
       end
     end
     f.actions         # adds the 'Submit' and 'Cancel' buttons
