@@ -4,7 +4,7 @@ ActiveAdmin.register Order do
                 :customer_id,
                 :shipping_address,
                 :status,
-                order_details: %i[id
+                order_details_attributes: %i[id
                                   product_id
                                   order_id
                                   order_price
@@ -23,7 +23,12 @@ ActiveAdmin.register Order do
       f.input :shipping_address
       f.input :status
       f.has_many :order_details, allow_destroy: true do |n_f|
-        n_f.input :product
+        n_f.input :product, as: :select
+        n_f.input :order_price
+        n_f.input :quantity
+        n_f.input :order_gst
+        n_f.input :order_pst
+        n_f.input :order_hst
       end
     end
     f.actions         # adds the 'Submit' and 'Cancel' buttons
