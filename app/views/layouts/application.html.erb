@@ -89,14 +89,15 @@
 
                 <div class="navbar-item">
                   <div class="buttons">
-                    <a class="button is-primary">
-                      <strong>Sign up</strong>
-                    </a>
-                    <a class="button is-light">
-                      Log in
-                    </a>
+                    <%= button_to(new_user_session_path, method: :get, class: "button is-primary") do %>
+                      <strong>Sign in</strong>
+                    <% end %>
+                    <%= button_to(destroy_user_session_path, method: :delete, class: "button is-warning") do %>
+                      Sign out
+                    <% end %>
                   </div>
                 </div>
+                
               </div>
             </div>
         </nav>
@@ -149,7 +150,7 @@
 
         <p class="notice"><%= notice %></p>
         <p class="alert"><%= alert %></p>
-        
+
         <%= yield %>
       </div>
     </section>
