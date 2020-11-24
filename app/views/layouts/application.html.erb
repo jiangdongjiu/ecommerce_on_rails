@@ -89,15 +89,18 @@
 
                 <div class="navbar-item">
                   <div class="buttons">
-                    <%= button_to(new_user_session_path, method: :get, class: "button is-primary") do %>
-                      <strong>Sign in</strong>
-                    <% end %>
-                    <%= button_to(destroy_user_session_path, method: :delete, class: "button is-warning") do %>
-                      Sign out
+                    <% if !user_signed_in? %>
+                      <%= button_to(new_user_session_path, method: :get, class: "button is-primary") do %>
+                        <strong>Sign in</strong>
+                      <% end %>
+                    <% else %>
+                      <%= button_to(destroy_user_session_path, method: :delete, class: "button is-warning") do %>
+                        <strong>Sign out</strong>
+                      <% end %>
                     <% end %>
                   </div>
                 </div>
-                
+
               </div>
             </div>
         </nav>
