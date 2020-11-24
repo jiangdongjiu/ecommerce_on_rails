@@ -30,7 +30,7 @@ ActiveAdmin.register Product do
       f.input :image, as: :file, hint: f.object.image.present? ? image_tag(f.object.image) : ''
       f.input :category, as: :select
       f.has_many :order_details, allow_destroy: true do |n_f|
-        n_f.input :order, as: :select
+        n_f.input :order, as: :select, collection: Order.all.map { |o| ["id: #{o.id}, user: #{o.user.email}, created at: #{o.created_at}, updated at: #{o.updated_at}", o.id] }
         n_f.input :order_price
         n_f.input :quantity
         n_f.input :order_gst

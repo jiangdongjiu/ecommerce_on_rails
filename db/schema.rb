@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_23_225957) do
+ActiveRecord::Schema.define(version: 2020_11_24_145018) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -65,20 +65,6 @@ ActiveRecord::Schema.define(version: 2020_11_23_225957) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "customers", force: :cascade do |t|
-    t.string "username"
-    t.string "password"
-    t.string "fullname"
-    t.string "email"
-    t.string "billing_address"
-    t.string "default_shipping_address"
-    t.string "phone"
-    t.integer "province_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["province_id"], name: "index_customers_on_province_id"
-  end
-
   create_table "order_details", force: :cascade do |t|
     t.integer "product_id", null: false
     t.integer "order_id", null: false
@@ -94,13 +80,12 @@ ActiveRecord::Schema.define(version: 2020_11_23_225957) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.integer "customer_id", null: false
     t.string "shipping_address"
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "name"
-    t.index ["customer_id"], name: "index_orders_on_customer_id"
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "pages", force: :cascade do |t|
@@ -148,10 +133,9 @@ ActiveRecord::Schema.define(version: 2020_11_23_225957) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "customers", "provinces"
   add_foreign_key "order_details", "orders"
   add_foreign_key "order_details", "products"
-  add_foreign_key "orders", "customers"
+  add_foreign_key "orders", "users"
   add_foreign_key "products", "categories"
   add_foreign_key "users", "provinces"
 end
