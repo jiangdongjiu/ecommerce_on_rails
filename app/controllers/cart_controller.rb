@@ -4,7 +4,7 @@ class CartController < ApplicationController
   def create
     # Add param[:id] to cart.
     id = params[:id].to_i
-    quantity = params[:product]["quantity"].to_i
+    quantity = params[:recipe]["quantity"].to_i
     session[:shopping_cart][id] = quantity # hash: {1 => 5, 2 => 6} product(id = 1) have 5 quantity
     flash[:notice] = "#{Product.find(id).name} added to your cart."
 
