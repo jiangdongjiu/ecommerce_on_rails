@@ -30,7 +30,7 @@
     </li>
   <% end %>
   <li>
-    Total: $ <%= cart.inject(0) { |total, (product, quantity)| total + (product.price * quantity ) } * (1 + (current_user.province.hst ? current_user.province.hst : (current_user.province.pst ? current_user.province.pst : 0) + (current_user.province.gst ? current_user.province.gst : 0) )) %>
+    Total: $ <%= grand_total %>
   </li>
 
   <%= button_to(place_order_path, method: :get, class: "button is-primary") do %>

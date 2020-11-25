@@ -33,7 +33,7 @@ class CartController < ApplicationController
       order_pst:        current_user.province.pst,
       order_gst:        current_user.province.gst,
       order_hst:        current_user.province.hst,
-      grand_total:      cart.inject(0) { |total, (product, quantity)| total + (product.price * quantity) } * (1 + (current_user.province.hst || +((current_user.province.gst || 0))))
+      grand_total:      grand_total
     )
     cart.each do |product, quantity|
       OrderDetail.create(
