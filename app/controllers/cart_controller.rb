@@ -22,6 +22,7 @@ class CartController < ApplicationController
   end
 
   def checkout
-    @products_with_quantity = cart
+    @cart = cart
+    @province = Province.all
   end
 end

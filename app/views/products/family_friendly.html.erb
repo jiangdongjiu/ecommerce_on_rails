@@ -1,4 +1,5 @@
 <h1 class="title is-4">Family Friendly</h1>
+<%= render partial: 'search' %>
 <div class="mb-5">
   <%= paginate @products, params: {controller: 'products', action: 'family_friendly'} %>
 </div>

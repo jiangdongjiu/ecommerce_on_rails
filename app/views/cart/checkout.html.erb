@@ -1,0 +1,41 @@
+<h1 class="title is-4">Checkout</h1>
+<% cart.each do |product, quantity| %>
+  <div class="navbar-item" >
+    <p>
+      <strong><%= product.name %></strong>
+       &nbsp;&nbsp; $<%= product.price %>
+       &nbsp;&nbsp; QTY: <%= quantity %>
+    </p>
+  </div>
+<% end %>
+<br/>
+<div class="navbar-item">
+<ul>
+  <li>
+    Subtotal:&nbsp;&nbsp;$<%= cart.inject(0) { |total, (product, quantity)| total + (product.price * quantity) } %>
+  </li>
+  <% if current_user.province.pst %>
+    <li>
+      PST: $<%= current_user.province.pst %>
+    </li>
+  <% end %>
+  <% if current_user.province.gst %>
+    <li>
+      GST: $<%= current_user.province.gst %>
+    </li>
+  <% end %>
+  <% if current_user.province.hst %>
+    <li>
+      HST: $<%= current_user.province.hst %>
+    </li>
+  <% end %>
+  <li>
+    Total: $ <%= cart.inject(0) { |total, (product, quantity)| total + (product.price * quantity ) } * (1 + (current_user.province.hst ? current_user.province.hst : (current_user.province.pst ? current_user.province.pst : 0) + (current_user.province.gst ? current_user.province.gst : 0) )) %>
+  </li>
+
+  <%= button_to(orders_create_path, method: :get, class: "button is-primary") do %>
+    <strong>Place Order</strong>
+  <% end %>
+
+</ul>
+</div>

@@ -25,6 +25,12 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
-  resources :cart, only: %i[create destroy]
+  resources :cart, only: %i[create destroy] do
+    collection do
+      get 'checkout'
+    end
+  end
+
+  resources :order, only: [:create]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
