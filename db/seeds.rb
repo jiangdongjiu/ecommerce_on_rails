@@ -52,3 +52,6 @@ recipes.each do |recipe|
   recipe_entry.image.attach(io: downloaded_image, filename: "#{recipe['title']}.jpg") if downloaded_image
   # sleep(1)
 end
+
+
+OrderDetail.delete_all

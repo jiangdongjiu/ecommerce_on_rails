@@ -1,7 +1,9 @@
 class User < ApplicationRecord
   belongs_to :province
   has_many :orders
-
+  validates :encrypted_password, presence: true
+  
+  accepts_nested_attributes_for :orders, allow_destroy: true
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,

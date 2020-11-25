@@ -22,7 +22,7 @@
       <% if !show_link %>
         <p><%= product.description %></p>
       <% end %>
-
+      <p>$<%= product.price %></p>
       <%= form_with url: cart_index_path do %>
         <%= hidden_field_tag(:id, product.id) %>
         <div class="field is-grouped">
