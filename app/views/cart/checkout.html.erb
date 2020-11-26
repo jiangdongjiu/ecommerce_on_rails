@@ -1,4 +1,4 @@
-<h1 class="title is-4">Checkout</h1>
+<h1 class="title is-4 ml-3">Cart</h1>
 <% cart.each do |product, quantity| %>
   <div class="navbar-item" >
     <p>
@@ -8,34 +8,21 @@
     </p>
   </div>
 <% end %>
-<br/>
 <div class="navbar-item">
 <ul>
   <li>
+    ---------------------------------
+  </li>
+  <li>
     Subtotal:&nbsp;&nbsp;$<%= cart.inject(0) { |total, (product, quantity)| total + (product.price * quantity) } %>
   </li>
-  <% if current_user.province.pst %>
-    <li>
-      PST: $<%= current_user.province.pst %>
-    </li>
+  <%# remote: true, might be the default of form_with, and it is using AJAX, will not fresh the page %>
+  <%# will be data-remote="true" in the html, it is not a html attribute. it is telling rails to use javascript for submiting the form, with an xhr requrest %>
+  <%# as JS    format is JS %>
+  <br/>
+  <%= form_with url: checkout_create_path, remote: true do %>
+    <%= hidden_field_tag(:cart, cart, autocomplete: "off") %>
+    <%= button_tag 'Place Order', class: "button is-primary"  %>
   <% end %>
-  <% if current_user.province.gst %>
-    <li>
-      GST: $<%= current_user.province.gst %>
-    </li>
-  <% end %>
-  <% if current_user.province.hst %>
-    <li>
-      HST: $<%= current_user.province.hst %>
-    </li>
-  <% end %>
-  <li>
-    Total: $ <%= grand_total %>
-  </li>
-
-  <%= button_to(place_order_path, method: :get, class: "button is-primary") do %>
-    <strong>Place Order</strong>
-  <% end %>
-
 </ul>
 </div>

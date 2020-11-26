@@ -31,5 +31,10 @@ Rails.application.routes.draw do
     end
   end
   get "/cart/place_order" => "cart#place_order", as: "place_order"
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  scope "/checkout" do
+    post "create", to: "stripe_checkout#create", as: "checkout_create"
+    get "success", to: "stripe_checkout#success", as: "checkout_success"
+    get "cancel", to: "stripe_checkout#cancel", as: "checkout_cancel"
+  end
 end

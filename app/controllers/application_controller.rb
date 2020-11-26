@@ -21,8 +21,4 @@ class ApplicationController < ActionController::Base
     session[:shopping_cart].transform_keys { |product_id| Product.find(product_id) }
     # Product.find(session[:shopping_cart]) # array if id will return a collection of products
   end
-
-  def grand_total
-    cart.inject(0) { |total, (product, quantity)| total + (product.price * quantity) } * (1 + (current_user.province.hst || + ((current_user.province.gst || 0))))
-  end
 end
