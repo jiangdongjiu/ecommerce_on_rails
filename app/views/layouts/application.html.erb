@@ -112,14 +112,23 @@
         <%# <%= debug cart %>
         <%# <% debug session[:shopping_cart] %>
 
-        <% if flash[:notice] %>
+        <% if flash[:note] %>
             <div class="notification is-primary is-light">
-              <%= flash[:notice] %>
+              <%= flash[:note] %>
+            </div>
+        <% end %>
+        <% if flash[:signin] %>
+            <div class="notification is-warning">
+              <%= flash[:signin] %>
             </div>
         <% end %>
 
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
+        <% if !notice.nil? %>
+          <p class="notice notification is-primary is-light"><%= notice %></p>
+        <% end %>
+        <% if !alert.nil? %>
+          <p class="alert notification is-warning"><%= alert %></p>
+        <% end %>
 
         <%= yield %>
       </div>
