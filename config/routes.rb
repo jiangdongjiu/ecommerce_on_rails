@@ -30,7 +30,6 @@ Rails.application.routes.draw do
       get "checkout"
     end
   end
-  get "/cart/place_order" => "cart#place_order", as: "place_order"
 
   scope "/checkout" do
     post "create", to: "stripe_checkout#create", as: "checkout_create"

@@ -122,6 +122,11 @@
               <%= flash[:signin] %>
             </div>
         <% end %>
+        <% if flash[:cart_blank] %>
+            <div class="notification is-info is-light">
+              <%= flash[:cart_blank] %>
+            </div>
+        <% end %>
 
         <% if !notice.nil? %>
           <p class="notice notification is-primary is-light"><%= notice %></p>

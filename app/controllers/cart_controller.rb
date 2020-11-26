@@ -26,5 +26,16 @@ class CartController < ApplicationController
       flash[:signin] = "Please sign in."
       redirect_to root_path
     end
+
+    if cart.blank?
+      flash[:cart_blank] = "Add recipes to your cart to checkout."
+      redirect_to root_path
+    end
+  end
+
+  def edit_quantity
+    id = params[:id].to_i
+    edit = parmas
+    session[:shopping_cart][id] += 1
   end
 end
