@@ -63,7 +63,7 @@ class StripeCheckoutController < ApplicationController
     # insert order and order detail data to database
     order_entry = current_user.orders.find_or_create_by(
       shipping_address: current_user.default_shipping_address,
-      status:           "pending",
+      status:           "new",
       order_pst:        current_user.province.pst,
       order_gst:        current_user.province.gst,
       order_hst:        current_user.province.hst,
@@ -82,7 +82,7 @@ class StripeCheckoutController < ApplicationController
     @session = Stripe::Checkout::Session.create(
       payment_method_types: ["card"],
       # _url would be everything： http://domain name/_path
-      success_url:          checkout_success_url,
+      success_url:          checkout_success_url + "?session_id={CHECKOUT_SESSION_ID}",
       cancel_url:           checkout_cancel_url,
       line_items:           items + tax
     )
@@ -95,6 +95,8 @@ class StripeCheckoutController < ApplicationController
 
   def success
     # we took the money 💰
+    @checkout_session = Stripe::Checkout::Session.retrieve(params[:session_id])
+    @payment_intent = Stripe::PaymentIntent.retrieve(@checkout_session.payment_intent)
   end
 
   def cancel
