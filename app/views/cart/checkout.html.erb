@@ -14,24 +14,6 @@
   <li>
     Subtotal:&nbsp;&nbsp;$<%= cart.inject(0) { |total, (product, quantity)| total + (product.price * quantity) } %>
   </li>
-  <% if current_user.province.pst %>
-    <li>
-      PST: $<%= current_user.province.pst %>
-    </li>
-  <% end %>
-  <% if current_user.province.gst %>
-    <li>
-      GST: $<%= current_user.province.gst %>
-    </li>
-  <% end %>
-  <% if current_user.province.hst %>
-    <li>
-      HST: $<%= current_user.province.hst %>
-    </li>
-  <% end %>
-  <li>
-    Total: $ <%= grand_total %>
-  </li>
 
   <%= button_to(place_order_path, method: :get, class: "button is-primary") do %>
     <strong>Place Order</strong>

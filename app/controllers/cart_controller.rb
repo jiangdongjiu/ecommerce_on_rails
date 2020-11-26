@@ -25,23 +25,4 @@ class CartController < ApplicationController
     @cart = cart
     @province = Province.all
   end
-
-  def place_order
-    order_entry = current_user.orders.create(
-      shipping_address: current_user.default_shipping_address,
-      status:           "pending",
-      order_pst:        current_user.province.pst,
-      order_gst:        current_user.province.gst,
-      order_hst:        current_user.province.hst,
-      grand_total:      grand_total
-    )
-    cart.each do |product, quantity|
-      OrderDetail.create(
-        product:     product,
-        order:       order_entry,
-        order_price: product.price,
-        quantity:    quantity
-      )
-    end
-  end
 end

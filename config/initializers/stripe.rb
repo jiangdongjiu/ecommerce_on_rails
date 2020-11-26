@@ -11,4 +11,4 @@ Rails.configuration.stripe = {
 
 # PUBLISHABLE_KEY=pk_..... SECRET_KEY=sk_... rails s
 
-Stripe.api_key = Rails.configuration.stripe(:secret_key)
+Stripe.api_key = Rails.configuration.stripe[:secret_key]
