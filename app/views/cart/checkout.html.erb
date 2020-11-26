@@ -1,4 +1,4 @@
-<h1 class="title is-4">Checkout</h1>
+<h1 class="title is-4">Cart</h1>
 <% cart.each do |product, quantity| %>
   <div class="navbar-item" >
     <p>
@@ -37,5 +37,12 @@
     <strong>Place Order</strong>
   <% end %>
 
+  <%# remote: true, might be the default of form_with, and it is using AJAX, will not fresh the page %>
+  <%# will be data-remote="true" in the html, it is not a html attribute. it is telling rails to use javascript for submiting the form, with an xhr requrest %>
+  <%# as JS    format is JS %>
+  <%= form_with url: checkout_create_path, remote: true do %>
+    <%= hidden_field_tag(:cart, cart, autocomplete: "off") %>
+    <%= button_tag 'stripe checkout', class: "button is-primary"  %>
+  <% end %>
 </ul>
 </div>
