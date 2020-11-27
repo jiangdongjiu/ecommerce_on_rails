@@ -78,6 +78,8 @@ class StripeCheckoutController < ApplicationController
       )
     end
 
+    # empty the session
+
     # Establish a connection with stripe
     @session = Stripe::Checkout::Session.create(
       payment_method_types: ["card"],
@@ -97,6 +99,7 @@ class StripeCheckoutController < ApplicationController
     # we took the money 💰
     @checkout_session = Stripe::Checkout::Session.retrieve(params[:session_id])
     @payment_intent = Stripe::PaymentIntent.retrieve(@checkout_session.payment_intent)
+    # @payment_intent['amount_received'] !=
   end
 
   def cancel

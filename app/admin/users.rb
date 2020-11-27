@@ -38,7 +38,7 @@ ActiveAdmin.register User do
         n_f.input :order_gst
         n_f.input :order_pst
         n_f.input :order_hst
-        n_f.has_many :order_details do |n_n_f|
+        n_f.has_many :order_details, allow_destroy: true do |n_n_f|
           n_n_f.input :product, as: :select
           n_n_f.input :order_price
           n_n_f.input :quantity
