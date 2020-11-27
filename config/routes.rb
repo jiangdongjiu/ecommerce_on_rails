@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
+  resources :orders, only: [:index]
+
   devise_for :users
+
   root to: "products#index"
 
   get "/pages/:permalink" => "pages#show_page", as: :permalink
