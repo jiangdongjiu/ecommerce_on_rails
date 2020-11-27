@@ -4,8 +4,8 @@ class CartController < ApplicationController
   def create
     # Add param[:id] to cart.
     id = params[:id].to_i
-    quantity = params[:recipe]["quantity"].to_i
-    session[:shopping_cart][id] = quantity # hash: {1 => 5, 2 => 6} product(id = 1) have 5 quantity
+    # quantity = params[:recipe]["quantity"].to_i # hash: {1 => 5, 2 => 6} product(id = 1) have 5 quantity
+    session[:shopping_cart][id] = 1
     flash[:note] = "#{Product.find(id).name} added to your cart."
 
     redirect_to root_path
@@ -33,9 +33,18 @@ class CartController < ApplicationController
     end
   end
 
-  def edit_quantity
-    id = params[:id].to_i
-    edit = parmas
-    session[:shopping_cart][id] += 1
+  def edit
+    id = params[:id]
+    edit = params[:edit]
+
+    if edit == "add_one"
+      session[:shopping_cart][id] = session[:shopping_cart][id] + 1
+    elsif edit == "remove_one"
+      session[:shopping_cart][id] = session[:shopping_cart][id] - 1
+    else
+      session[:shopping_cart].delete(id)
+    end
+
+    redirect_to checkout_cart_index_path
   end
 end

@@ -110,7 +110,8 @@
 
         <%# <%= debug session[:shopping_cart] %>
         <%# <%= debug cart %>
-        <%# <% debug session[:shopping_cart] %>
+        <% debug request.env['PATH_INFO'] %>
+
 
         <% if flash[:note] %>
             <div class="notification is-primary is-light">

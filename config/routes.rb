@@ -25,11 +25,13 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
-  resources :cart, only: %i[create destroy post] do
+  resources :cart, only: %i[create destroy] do
     collection do
       get "checkout"
     end
   end
+
+  post "/cart/edit", to: "cart#edit", as: "edit_cart"
 
   scope "/checkout" do
     post "create", to: "stripe_checkout#create", as: "checkout_create"

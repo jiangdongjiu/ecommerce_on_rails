@@ -23,19 +23,18 @@
         <p><%= product.description %></p>
       <% end %>
       <p>$<%= product.price %></p>
-      <%= form_with url: cart_index_path do %>
-        <%= hidden_field_tag(:id, product.id) %>
-        <div class="field is-grouped">
-          <%= number_field(:recipe, :quantity, min: 1, class: "input") %>
-          <%= button_tag(cart.include?(product) ? 'Update' : 'Add', class: "button is-primary") %>
-        </div>
-      <% end %>
 
       <% if cart.include?(product) %>
-        <%= button_to(cart_path(product), method: :delete, class: "button is-warning") do %>
+        <%= button_to(cart_path(product), method: :delete, class: "button is-warning is-small") do %>
           Delete
         <% end %>
+      <% else %>
+        <%= form_with url: cart_index_path do %>
+          <%= hidden_field_tag(:id, product.id) %>
+          <%= button_tag('Add to Cart', class: "button is-primary is-small") %>
+        <% end %>
       <% end %>
+
     </div>
   </div>
   </div>
