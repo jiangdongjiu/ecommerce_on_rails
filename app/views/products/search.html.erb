@@ -1,7 +1,7 @@
 <% if params[:keywords].present? %>
   <h1 class="title is-5">Recipes found when search for: <%= params[:keywords] %></h1>
 <% end %>
-
+<%= render partial: 'search' %>
 <div class="mb-5">
   <%= paginate @products %>
 </div>

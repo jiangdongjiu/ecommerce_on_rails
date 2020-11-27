@@ -8,41 +8,37 @@
         &nbsp;&nbsp;
       </p>
       <%= form_with url: edit_cart_path do %>
-        <%= hidden_field_tag(:id, product.id) %>
-        <%= hidden_field_tag(:edit, "remove_one") %>
+        <%= hidden_field_tag(:id, product.id, id: "remove_one_id_#{product.id}") %>
+        <%= hidden_field_tag(:edit, "remove_one", id: "remove_one_#{product.id}") %>
         <%= button_tag("➖", class: "button is-primary is-small") %>
       <% end %>
       <span class="tag is-light is-medium">&nbsp;&nbsp;<%= quantity %>&nbsp;&nbsp;</span>
       <%= form_with url: edit_cart_path do %>
-        <%= hidden_field_tag(:id, product.id) %>
-        <%= hidden_field_tag(:edit, "add_one") %>
+        <%= hidden_field_tag(:id, product.id, id: "add_one_id_#{product.id}") %>
+        <%= hidden_field_tag(:edit, "add_one", id: "add_one_#{product.id}") %>
         <%= button_tag("➕", class: "button is-primary is-small") %>
       <% end %>
       <%=  %>
       <%= form_with url: edit_cart_path do %>
-        <%= hidden_field_tag(:id, product.id) %>
-        <%= hidden_field_tag(:edit, "delete") %>
+        <%= hidden_field_tag(:id, product.id, id: "delete_id_#{product.id}") %>
+        <%= hidden_field_tag(:edit, "delete", id: "delete_#{product.id}") %>
         <%= button_tag("delete", class: "button is-warning is-small") %>
       <% end %>
     </div>
   <% end %>
 </div>
-
+<br/>
+<br/>
 <div class="navbar-item">
-<ul>
-  <br/>
-  <br/>
-  <div>
-    <strong>Subtotal:</strong>
-    $<%= cart.inject(0) { |total, (product, quantity)| total + (product.price * quantity) } %>
-  </div>
-  <%# remote: true, might be the default of form_with, and it is using AJAX, will not fresh the page %>
-  <%# will be data-remote="true" in the html, it is not a html attribute. it is telling rails to use javascript for submiting the form, with an xhr requrest %>
-  <%# as JS    format is JS %>
-  <br/>
+  <strong>Subtotal:</strong>
+  &nbsp;&nbsp;$<%= cart.inject(0) { |total, (product, quantity)| total + (product.price * quantity) } %>
+</div>
+<%# remote: true, might be the default of form_with, and it is using AJAX, will not fresh the page %>
+<%# will be data-remote="true" in the html, it is not a html attribute. it is telling rails to use javascript for submiting the form, with an xhr requrest %>
+<%# as JS    format is JS %>
+<div class="navbar-item">
   <%= form_with url: checkout_create_path, remote: true do %>
     <%= hidden_field_tag(:cart, cart, autocomplete: "off") %>
     <%= button_tag 'Place Order', class: "button is-primary"  %>
   <% end %>
-</ul>
 </div>

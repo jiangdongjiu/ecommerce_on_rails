@@ -24,19 +24,16 @@
       </div>
 
       <div class="field">
-        <%= f.label :address %>
-        <%= f.text_field :default_shipping_address, autocomplete: "off", class: "input", type: "text" %>
+        <%= f.label "address" %>
+        <%= f.text_field :default_shipping_address, autocomplete: "off", class: "input", type: "text", id: "user_address" %>
       </div>
 
-      <%= f.label :province %>
       <div class="field">
-        <div class="control">
-          <div class="select is-expended">
-            <%= f.collection_select(:province_id, Province.all, :id, :name, autocomplete: "off") %>
-          </div>
+        <div class="select" >
+          <%= f.collection_select(:province_id, Province.all, :id, :name, autocomplete: "off", id: "user_province") %>
         </div>
-      </div><br/>
-
+      </div>
+      <br/>
       <div class="actions">
         <%= button_tag 'Sign up', class: "button is-primary"  %>
       </div>

@@ -30,7 +30,7 @@
         <% end %>
       <% else %>
         <%= form_with url: cart_index_path do %>
-          <%= hidden_field_tag(:id, product.id) %>
+          <%= hidden_field_tag(:id, product.id, id: product.id) %>
           <%= button_tag('Add to Cart', class: "button is-primary is-small") %>
         <% end %>
       <% end %>
