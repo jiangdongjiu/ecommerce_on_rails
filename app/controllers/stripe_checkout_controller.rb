@@ -61,7 +61,7 @@ class StripeCheckoutController < ApplicationController
     end
 
     # insert order and order detail data to database
-    order_entry = current_user.orders.find_or_create_by(
+    order_entry = current_user.orders.create(
       shipping_address: current_user.default_shipping_address,
       status:           "new",
       order_pst:        current_user.province.pst,
@@ -70,7 +70,7 @@ class StripeCheckoutController < ApplicationController
       grand_total:      grand_total.to_f / 100
     )
     cart.each do |product, quantity|
-      OrderDetail.find_or_create_by(
+      OrderDetail.create(
         product:     product,
         order:       order_entry,
         order_price: product.price,
@@ -78,13 +78,11 @@ class StripeCheckoutController < ApplicationController
       )
     end
 
-    # empty the session
-
     # Establish a connection with stripe
     @session = Stripe::Checkout::Session.create(
       payment_method_types: ["card"],
       # _url would be everything： http://domain name/_path
-      success_url:          checkout_success_url + "?session_id={CHECKOUT_SESSION_ID}",
+      success_url:          checkout_success_url + "?session_id={CHECKOUT_SESSION_ID}&total_amount=#{grand_total}&order_id=#{order_entry.id}",
       cancel_url:           checkout_cancel_url,
       line_items:           items + tax
     )
@@ -97,9 +95,23 @@ class StripeCheckoutController < ApplicationController
 
   def success
     # we took the money 💰
-    @checkout_session = Stripe::Checkout::Session.retrieve(params[:session_id])
-    @payment_intent = Stripe::PaymentIntent.retrieve(@checkout_session.payment_intent)
-    # @payment_intent['amount_received'] !=
+    total_amount = params[:total_amount].to_i
+    order_id = params[:order_id].to_i
+    checkout_session = Stripe::Checkout::Session.retrieve(params[:session_id])
+    payment_intent = Stripe::PaymentIntent.retrieve(checkout_session.payment_intent)
+    amount_received = payment_intent["amount_received"]
+    # amount_capturable = payment_intent["amount_capturable"]
+    amount = payment_intent["amount"]
+
+    if amount != amount_received || amount != total_amount
+      redirect_to checkout_cancel_url
+    else
+      order_entry = Order.find(order_id)
+      order_entry.status = "paid"
+      order_entry.save
+      # empty the session
+      session[:shopping_cart] = {}
+    end
   end
 
   def cancel
