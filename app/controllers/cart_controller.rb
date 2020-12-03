@@ -40,7 +40,9 @@ class CartController < ApplicationController
     if edit == "add_one"
       session[:shopping_cart][id] = session[:shopping_cart][id] + 1
     elsif edit == "remove_one"
-      session[:shopping_cart][id] = session[:shopping_cart][id] - 1
+      if session[:shopping_cart][id] != 1
+        session[:shopping_cart][id] = session[:shopping_cart][id] - 1
+      end
     else
       session[:shopping_cart].delete(id)
     end

@@ -68,9 +68,16 @@
               </div>
 
               <div class="navbar-end">
-                <a class="navbar-item" href=<%= orders_path %>>
-                  Orders
-                </a>
+                <% if user_signed_in? %>
+                  <a class="navbar-item" href=<%= orders_path %>>
+                    Orders
+                  </a>
+                <% else %>
+                  <a class="navbar-item" href=<%= new_user_session_path %>>
+                    Orders
+                  </a>
+                <% end %>
+
                 <div class="navbar-item has-dropdown is-hoverable">
                   <a class="navbar-link">
                     <i class="fa" style="font-size:24px">&#xf07a;</i>

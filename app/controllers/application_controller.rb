@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :initialize_session
   helper_method :cart
-  helper_method :grand_total
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
