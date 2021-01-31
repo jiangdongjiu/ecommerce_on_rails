@@ -2,9 +2,9 @@ require 'open-uri'
 
 OrderDetail.delete_all
 Product.delete_all
-# Category.delete_all
+Category.delete_all
 Order.delete_all
-Customer.delete_all
+User.delete_all
 Province.delete_all
 AdminUser.delete_all
 
@@ -12,14 +12,14 @@ if Rails.env.development?
   AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
 end
 
-# categories = ["Meat and Veggies", "Easy and Fast", "Family Friendly", "Vegetarian"]
+categories = ["Meat and Veggies", "Easy and Fast", "Family Friendly", "Vegetarian"]
 def random_category
   ['Meat and Veggies', 'Easy and Fast', 'Family Friendly', 'Vegetarian'].sample
 end
 
-# categories.each do |category|
-#   Category.create(name: category)
-# end
+categories.each do |category|
+  Category.create(name: category)
+end
 
 def api_fetch(url)
   JSON.parse(URI.open(url).read)
@@ -52,6 +52,3 @@ recipes.each do |recipe|
   recipe_entry.image.attach(io: downloaded_image, filename: "#{recipe['title']}.jpg") if downloaded_image
   # sleep(1)
 end
-
-
-OrderDetail.delete_all
