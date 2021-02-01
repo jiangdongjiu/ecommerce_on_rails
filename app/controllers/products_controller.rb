@@ -8,19 +8,19 @@ class ProductsController < ApplicationController
   end
 
   def vegetarian
-    @products = Product.includes(:category).where(category_id: 13).page params[:page]
+    @products = Product.includes(:category).where(category_id: 4).page params[:page]
   end
 
   def family_friendly
-    @products = Product.includes(:category).where(category_id: 12).page params[:page]
+    @products = Product.includes(:category).where(category_id: 3).page params[:page]
   end
 
   def easy_fast
-    @products = Product.includes(:category).where(category_id: 11).page params[:page]
+    @products = Product.includes(:category).where(category_id: 2).page params[:page]
   end
 
   def meat_veggies
-    @products = Product.includes(:category).where(category_id: 10).page params[:page]
+    @products = Product.includes(:category).where(category_id: 1).page params[:page]
   end
 
   def search
